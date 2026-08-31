@@ -899,6 +899,15 @@
       "description": "Ini adalah respons default yang akan dikirim workspace Anda saat tidak mengetahui cara membalas pesan pengguna.",
       "label": "Balasan Default"
     },
+    "defaultReplyFrequency": {
+      "description": "Controls how often the Default Reply flow may fire for the same contact on a channel.",
+      "label": "Default Reply activation frequency",
+      "options": {
+        "allTime": "All time",
+        "oncePerHour": "Once per 1h",
+        "oncePerDay": "Once per 24h"
+      }
+    },
     "smartResponseDelaySeconds": {
       "description": "Atur berapa lama bot menunggu sebelum membalas setelah pesan terakhir pengguna. Jika pengguna mengirim pesan lain, waktu akan diatur ulang dan pesan-pesan akan diantrekan menjadi satu respons.",
       "label": "Bot balasan delay",
@@ -1272,6 +1281,12 @@
     },
     "pageUserName": {
       "label": "Nama Pengguna Halaman"
+    },
+    "waUserId": {
+      "label": "ID Pengguna WhatsApp"
+    },
+    "waUserName": {
+      "label": "Nama Pengguna WhatsApp"
     },
     "purpose": {
       "label": "Tujuan",
@@ -1976,6 +1991,9 @@
     "bookingDate": {
       "label": "Tanggal Pemesanan"
     },
+    "bookingLink": {
+      "label": "Tautan pemesanan"
+    },
     "n8nEvents": {
       "label": "Peristiwa",
       "placeholder": "Ketik nama peristiwa lalu tekan Enter",
@@ -1983,6 +2001,10 @@
     }
   },
   "flows": {
+    "export": {
+      "notPublished": "Alur ini belum pernah dipublikasikan. Publikasikan sebelum mengekspor.",
+      "failed": "Ekspor gagal. Silakan coba lagi."
+    },
     "title": "Alur",
     "quickReplies": {
       "limitReached": "Batas balasan cepat tercapai ({max})."
@@ -2112,7 +2134,11 @@
       "appointmentScheduling": "Penjadwalan Janji Temu",
       "triggerN8n": "Trigger n8n",
       "metaConversions": "Meta Conversions API",
-      "sendMetaCapiEvent": "Kirim Peristiwa Meta CAPI"
+      "sendMetaCapiEvent": "Kirim Peristiwa Meta CAPI",
+      "import": "Impor Alur",
+      "export": "Ekspor",
+      "importStarted": "Alur sedang diimpor. Periksa riwayat impor untuk melihat hasilnya.",
+      "importJsonOnly": "Hanya file JSON"
     },
     "splitTraffic": {
       "balanceHint": "Jumlah total harus sama dengan 100%.",
@@ -2266,32 +2292,12 @@
   },
   "ads": {
     "title": "Iklan",
-    "nav": {
-      "clickToWhatsappAds": "Iklan Click to WhatsApp",
-      "clickToTiktokAds": "Iklan Click to TikTok",
-      "connectAccounts": "Hubungkan Akun",
-      "conversionEvents": "Peristiwa Konversi",
-      "adsAnalytics": "Analitik iklan",
-      "reporting": "Pelaporan",
-      "ctwa": "CTWA",
-      "googleAds": "Google Ads",
-      "comingSoon": "Segera hadir"
-    },
     "connectAccounts": {
-      "title": "Kelola semua akun iklan Anda",
-      "description": "Lacak konversi dan optimalkan kampanye iklan click-to-WhatsApp Anda.",
-      "learnMore": "Pelajari Lebih Lanjut",
       "connectAdAccount": "Hubungkan Akun Iklan",
       "adAccountName": "Nama Akun Iklan",
-      "disconnect": "Putuskan Koneksi",
-      "empty": "Belum ada akun iklan yang terhubung.",
-      "adAccountsTitle": "Akun iklan Meta",
-      "adAccountsDescription": "Hubungkan Iklan Facebook untuk memuat akun iklan yang digunakan untuk kampanye click-to-WhatsApp.",
       "adAccountsReconnectBanner": "Token akun iklan Meta Anda telah berakhir atau kehilangan izin. Hubungkan kembali Iklan Facebook agar pelaporan iklan tetap tersedia.",
       "adAccountsNotConnected": "Belum ada akun iklan Meta yang terhubung.",
       "adAccountsEmpty": "Tidak ditemukan akun iklan Meta untuk koneksi Iklan Facebook ini.",
-      "adAccountsNote": "Pengeluaran dan audiens retargeting berasal dari akun iklan ini.",
-      "reconnectBanner": "Hubungkan kembali akun WhatsApp Anda untuk mengaktifkan pengiriman peristiwa konversi ke Meta.",
       "reconnect": "Hubungkan Kembali",
       "reconnectSuccess": "Akun WhatsApp berhasil dihubungkan kembali.",
       "selectAccountLabel": "Akun WhatsApp",
@@ -2301,22 +2307,9 @@
         "unverified": "Izin belum diverifikasi"
       },
       "table": {
-        "name": "Nama",
-        "phoneNumber": "Nomor telepon",
-        "wabaId": "ID WABA",
-        "permission": "Peristiwa Otomatis"
-      },
-      "providers": {
-        "meta": "Meta",
-        "googleAds": "Google Ads",
-        "tiktok": "TikTok"
+        "wabaId": "ID WABA"
       },
       "connectWhatsapp": {
-        "title": "Hubungkan akun WhatsApp Anda terlebih dahulu",
-        "description": "Pelacakan konversi Click-to-WhatsApp memerlukan akun WhatsApp yang terhubung sebelum Anda dapat menautkan akun iklan dan membuat dataset konversi.",
-        "step1": "Hubungkan akun WhatsApp Business Anda di Kanal.",
-        "step2": "Kembali ke sini untuk mengotorisasi Meta Ads dan memilih akun iklan Anda.",
-        "step3": "Kami akan otomatis membuat dataset konversi menggunakan akun WhatsApp Business Anda.",
         "cta": "Hubungkan akun WhatsApp"
       }
     },
@@ -2751,6 +2744,11 @@
     "noWorkspaces": "Anda belum memiliki ruang kerja.",
     "owner": "Pemilik"
   },
+  "notFound": {
+    "title": "Halaman tidak ditemukan",
+    "description": "Halaman yang Anda cari tidak ada atau mungkin telah dipindahkan.",
+    "backToHome": "Kembali ke halaman utama"
+  },
   "editProfile": {
     "title": "Edit Profil"
   },
@@ -2970,6 +2968,8 @@
     "toggleHelper": "Pengaktifan kembali hanya berfungsi jika Meta masih menyimpan data (dalam 24 jam sejak orientasi). Jika tidak, putuskan lalu hubungkan kembali.",
     "toggleHelperMessenger": "Pengaktifan kembali hanya berfungsi jika Meta masih menyimpan data (dalam 24 jam sejak orientasi). Jika tidak, putuskan lalu hubungkan kembali halaman Messenger.",
     "toggleHelperWhatsapp": "Pengaktifan kembali hanya berfungsi jika Meta masih menyimpan data (dalam 24 jam sejak orientasi). Jika tidak, putuskan lalu hubungkan kembali nomor WhatsApp.",
+    "aiReadsSyncedHistoryLabel": "AI membaca riwayat sinkronisasi",
+    "aiReadsSyncedHistoryHelper": "Saat nonaktif, AI hanya melihat pesan baru.",
     "success": {
       "enabled": "Sinkronisasi dimulai. Kontak dan pesan historis akan segera muncul.",
       "disabled": "Sinkronisasi dinonaktifkan."
@@ -3388,7 +3388,8 @@
       "messageTemplates": "Templat Pesan",
       "profile": "Profil",
       "usefulLinks": "Tautan Berguna",
-      "conversionsApi": "Optimasi Iklan"
+      "conversionsApi": "Optimasi Iklan",
+      "settings": "Pengaturan"
     },
     "accountHealths": {
       "title": "Kelola akun WhatsApp Anda",
@@ -3518,7 +3519,13 @@
       "label": "Header Templat"
     },
     "transferPhoneNumber": "Transfer telepon dari penyedia WhatsApp lain",
-    "signupSessionExpired": "Sesi pendaftaran WhatsApp Anda telah kedaluwarsa. Mulai kembali proses koneksi."
+    "signupSessionExpired": "Sesi pendaftaran WhatsApp Anda telah kedaluwarsa. Mulai kembali proses koneksi.",
+    "capi": {
+      "automaticEvents": {
+        "title": "Peristiwa Otomatis",
+        "description": "Kirim peristiwa konversi dari nomor WhatsApp ini ke Meta secara otomatis. Jika izin belum ada, sambungkan ulang akun untuk memberikannya."
+      }
+    }
   },
   "zalo": {
     "title": "Zalo OA",
@@ -4149,15 +4156,18 @@
     "title": "Penjadwalan Janji Temu",
     "description": "Buat dan kelola penjadwalan janji temu Anda.",
     "flowModes": {
-      "book": "Buat janji temu",
-      "cancel": "Batalkan janji temu",
-      "checkAvailability": "Periksa ketersediaan"
+      "bookFromCustomField": "Buat janji temu",
+      "checkAvailabilityFromCustomField": "Periksa ketersediaan",
+      "book": "Pemilih tanggal & waktu",
+      "checkAvailability": "Pemilih rentang tanggal",
+      "cancel": "Batalkan janji temu"
     },
     "fields": {
       "mode": "Mode",
       "dateTimeFieldId": "Simpan tanggal terpilih ke",
-      "startDateFieldId": "Tanggal mulai",
-      "endDateFieldId": "Tanggal selesai",
+      "dateTimeFieldIdSource": "Kolom tanggal/waktu",
+      "startDateFieldId": "Kolom tanggal mulai",
+      "endDateFieldId": "Kolom tanggal selesai",
       "resultUsedByAI": "Gunakan hasil untuk AI",
       "outputCustomFieldId": "Simpan respons ke kolom kustom",
       "startDateFieldIdSelected": "Simpan tanggal mulai terpilih ke",
@@ -4873,6 +4883,7 @@
       "endDate": "Tanggal Selesai",
       "specificDate": "Tanggal",
       "maxAppointmentsPerUser": "Maksimum janji temu per pengguna",
+      "maxAppointmentsUnlimited": "Tidak terbatas",
       "dailyLimitEnabled": "Batas harian",
       "maxPerDay": "Maks per Hari",
       "allowGroupMeeting": "Izinkan Pertemuan Kelompok",

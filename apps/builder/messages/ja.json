@@ -899,6 +899,15 @@
       "description": "ユーザーのメッセージへの応答方法がワークスペースで判別できない場合に送信するデフォルトの応答です。",
       "label": "デフォルト返信"
     },
+    "defaultReplyFrequency": {
+      "description": "Controls how often the Default Reply flow may fire for the same contact on a channel.",
+      "label": "Default Reply activation frequency",
+      "options": {
+        "allTime": "All time",
+        "oncePerHour": "Once per 1h",
+        "oncePerDay": "Once per 24h"
+      }
+    },
     "smartResponseDelaySeconds": {
       "description": "ユーザーの最後のメッセージからボットが返信するまでの待機時間を設定します。ユーザーが別のメッセージを送信するとタイマーがリセットされ、メッセージが1つの応答にまとめられます。",
       "label": "ボットの返信遅延",
@@ -1272,6 +1281,12 @@
     },
     "pageUserName": {
       "label": "ページユーザー名"
+    },
+    "waUserId": {
+      "label": "WhatsAppユーザーID"
+    },
+    "waUserName": {
+      "label": "WhatsAppユーザー名"
     },
     "purpose": {
       "label": "目的",
@@ -1976,6 +1991,9 @@
     "bookingDate": {
       "label": "予約日"
     },
+    "bookingLink": {
+      "label": "予約リンク"
+    },
     "n8nEvents": {
       "label": "イベント",
       "placeholder": "イベント名を入力してEnterキーを押してください",
@@ -1983,6 +2001,10 @@
     }
   },
   "flows": {
+    "export": {
+      "notPublished": "このフローはまだ公開されていません。エクスポートする前に公開してください。",
+      "failed": "エクスポートに失敗しました。もう一度お試しください。"
+    },
     "title": "フロー",
     "quickReplies": {
       "limitReached": "クイック返信の上限（{max}件）に達しました。"
@@ -2112,7 +2134,11 @@
       "appointmentScheduling": "予約スケジュール",
       "triggerN8n": "n8n をトリガー",
       "metaConversions": "Meta Conversions API",
-      "sendMetaCapiEvent": "Meta CAPI イベントを送信"
+      "sendMetaCapiEvent": "Meta CAPI イベントを送信",
+      "import": "フローをインポート",
+      "export": "エクスポート",
+      "importStarted": "フローをインポート中です。結果はインポート履歴でご確認ください。",
+      "importJsonOnly": "JSONファイルのみ"
     },
     "splitTraffic": {
       "balanceHint": "合計は100%になる必要があります。",
@@ -2266,32 +2292,12 @@
   },
   "ads": {
     "title": "広告",
-    "nav": {
-      "clickToWhatsappAds": "Click to WhatsApp広告",
-      "clickToTiktokAds": "Click to TikTok広告",
-      "connectAccounts": "アカウントを接続",
-      "conversionEvents": "コンバージョンイベント",
-      "adsAnalytics": "広告分析",
-      "reporting": "レポート",
-      "ctwa": "CTWA",
-      "googleAds": "Google広告",
-      "comingSoon": "近日公開"
-    },
     "connectAccounts": {
-      "title": "すべての広告アカウントを管理",
-      "description": "コンバージョンを追跡し、Click to WhatsApp広告キャンペーンを最適化しましょう。",
-      "learnMore": "詳しくはこちら",
       "connectAdAccount": "広告アカウントを接続",
       "adAccountName": "広告アカウント名",
-      "disconnect": "接続解除",
-      "empty": "広告アカウントはまだ接続されていません。",
-      "adAccountsTitle": "Meta広告アカウント",
-      "adAccountsDescription": "Facebook広告を接続して、Click to WhatsAppキャンペーンで使用する広告アカウントを読み込みます。",
       "adAccountsReconnectBanner": "Meta広告アカウントのトークンが期限切れ、または権限が失われました。広告レポートを利用できる状態に保つには、Facebook広告を再接続してください。",
       "adAccountsNotConnected": "Meta広告アカウントはまだ接続されていません。",
       "adAccountsEmpty": "このFacebook広告の接続では、Meta広告アカウントが見つかりませんでした。",
-      "adAccountsNote": "広告費とリターゲティングオーディエンスは、これらの広告アカウントから取得されます。",
-      "reconnectBanner": "コンバージョンイベントをMetaに送信できるようにするには、WhatsAppアカウントを再接続してください。",
       "reconnect": "再接続",
       "reconnectSuccess": "WhatsAppアカウントを再接続しました。",
       "selectAccountLabel": "WhatsAppアカウント",
@@ -2301,22 +2307,9 @@
         "unverified": "権限が未確認です"
       },
       "table": {
-        "name": "名前",
-        "phoneNumber": "電話番号",
-        "wabaId": "WABA ID",
-        "permission": "自動イベント"
-      },
-      "providers": {
-        "meta": "Meta",
-        "googleAds": "Google広告",
-        "tiktok": "TikTok"
+        "wabaId": "WABA ID"
       },
       "connectWhatsapp": {
-        "title": "まずWhatsAppアカウントを接続してください",
-        "description": "Click to WhatsAppのコンバージョン追跡を行うには、広告アカウントを連携してコンバージョンデータセットを作成する前に、WhatsAppアカウントを接続しておく必要があります。",
-        "step1": "「チャネル」でWhatsApp Businessアカウントを接続します。",
-        "step2": "ここに戻ってMeta広告を承認し、広告アカウントを選択します。",
-        "step3": "お使いのWhatsApp Businessアカウントを使用して、コンバージョンデータセットを自動的に作成します。",
         "cta": "WhatsAppアカウントを接続"
       }
     },
@@ -2954,6 +2947,8 @@
     "toggleHelper": "再有効化できるのは、Metaにバッファーデータが残っている場合（オンボーディング後24時間以内）のみです。それ以外の場合は切断して再接続してください。",
     "toggleHelperMessenger": "再有効化できるのは、Metaにバッファーデータが残っている場合（オンボーディング後24時間以内）のみです。それ以外の場合はMessengerページを切断して再接続してください。",
     "toggleHelperWhatsapp": "再有効化できるのは、Metaにバッファーデータが残っている場合（オンボーディング後24時間以内）のみです。それ以外の場合はWhatsApp番号を切断して再接続してください。",
+    "aiReadsSyncedHistoryLabel": "AIが同期履歴を読む",
+    "aiReadsSyncedHistoryHelper": "オフの場合、AIは新しいメッセージのみを見ます。",
     "success": {
       "enabled": "同期を開始しました。過去の連絡先とメッセージはまもなく表示されます。",
       "disabled": "同期を無効にしました。"
@@ -3372,7 +3367,8 @@
       "messageTemplates": "メッセージテンプレート",
       "profile": "プロフィール",
       "usefulLinks": "便利なリンク",
-      "conversionsApi": "広告最適化"
+      "conversionsApi": "広告最適化",
+      "settings": "設定"
     },
     "accountHealths": {
       "title": "WhatsAppアカウントを管理",
@@ -3502,7 +3498,13 @@
       "label": "テンプレートのヘッダー"
     },
     "transferPhoneNumber": "別のWhatsAppプロバイダーから電話番号を移行",
-    "signupSessionExpired": "WhatsApp登録セッションの有効期限が切れました。接続を最初からやり直してください。"
+    "signupSessionExpired": "WhatsApp登録セッションの有効期限が切れました。接続を最初からやり直してください。",
+    "capi": {
+      "automaticEvents": {
+        "title": "自動イベント",
+        "description": "この WhatsApp 番号からコンバージョンイベントを Meta に自動送信します。権限がない場合は、アカウントを再接続して付与してください。"
+      }
+    }
   },
   "zalo": {
     "title": "Zalo OA",
@@ -4138,6 +4140,11 @@
     "noWorkspaces": "ワークスペースはまだありません。",
     "owner": "所有者"
   },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "description": "お探しのページは存在しないか、移動された可能性があります。",
+    "backToHome": "ホームに戻る"
+  },
   "editProfile": {
     "title": "プロフィールを編集"
   },
@@ -4149,15 +4156,18 @@
     "title": "予約スケジュール",
     "description": "予約スケジュールを作成・管理します。",
     "flowModes": {
-      "book": "予約を作成",
-      "cancel": "予約をキャンセル",
-      "checkAvailability": "空き状況を確認"
+      "bookFromCustomField": "予約を作成",
+      "checkAvailabilityFromCustomField": "空き状況を確認",
+      "book": "日時ピッカー",
+      "checkAvailability": "日付範囲ピッカー",
+      "cancel": "予約をキャンセル"
     },
     "fields": {
       "mode": "モード",
       "dateTimeFieldId": "予約日時",
-      "startDateFieldId": "開始日",
-      "endDateFieldId": "終了日",
+      "dateTimeFieldIdSource": "日時フィールド",
+      "startDateFieldId": "開始日フィールド",
+      "endDateFieldId": "終了日フィールド",
       "resultUsedByAI": "AIで結果を使用",
       "outputCustomFieldId": "結果の保存先",
       "startDateFieldIdSelected": "選択した開始日の保存先",
@@ -4873,6 +4883,7 @@
       "endDate": "終了日",
       "specificDate": "日付",
       "maxAppointmentsPerUser": "1ユーザーあたりの最大予約数",
+      "maxAppointmentsUnlimited": "無制限",
       "dailyLimitEnabled": "1日の上限",
       "maxPerDay": "1日あたりの最大件数",
       "allowGroupMeeting": "グループミーティングを許可",

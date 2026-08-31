@@ -899,6 +899,15 @@
       "description": "It er den standard svar that din arbejdsområde vil send til brugere når den arbejdsområde doesn't know how til respond til den bruger besked.",
       "label": "Standard Svar"
     },
+    "defaultReplyFrequency": {
+      "description": "Controls how often the Default Reply flow may fire for the same contact on a channel.",
+      "label": "Default Reply activation frequency",
+      "options": {
+        "allTime": "All time",
+        "oncePerHour": "Once per 1h",
+        "oncePerDay": "Once per 24h"
+      }
+    },
     "smartResponseDelaySeconds": {
       "description": "Set how long den bot waits før replying efter den bruger’s seneste besked. Hvis den bruger sends another besked, den timer resets og beskeder er queued into a single svar.",
       "label": "Bot svar forsinkelse",
@@ -1272,6 +1281,12 @@
     },
     "pageUserName": {
       "label": "Side Bruger Navn"
+    },
+    "waUserId": {
+      "label": "WhatsApp Bruger-ID"
+    },
+    "waUserName": {
+      "label": "WhatsApp Brugernavn"
     },
     "purpose": {
       "label": "Purpose",
@@ -1976,6 +1991,9 @@
     "bookingDate": {
       "label": "Bookingdato"
     },
+    "bookingLink": {
+      "label": "Bookinglink"
+    },
     "n8nEvents": {
       "label": "Hændelser",
       "placeholder": "Skriv et hændelsenavn og tryk på Enter",
@@ -1983,6 +2001,10 @@
     }
   },
   "flows": {
+    "export": {
+      "notPublished": "Denne flow er aldrig blevet offentliggjort. Udgiv den, før du eksporterer.",
+      "failed": "Eksport mislykkedes. Prøv igen."
+    },
     "title": "Flows",
     "quickReplies": {
       "limitReached": "Quick svar limit reached ({max})."
@@ -2112,7 +2134,11 @@
       "appointmentScheduling": "Aftaleplanlægning",
       "triggerN8n": "Trigger n8n",
       "metaConversions": "Meta Conversions API",
-      "sendMetaCapiEvent": "Send Meta CAPI Event"
+      "sendMetaCapiEvent": "Send Meta CAPI Event",
+      "import": "Importer flow",
+      "export": "Eksporter",
+      "importStarted": "Flowet importeres. Tjek importhistorikken for resultater.",
+      "importJsonOnly": "Kun JSON-filer"
     },
     "splitTraffic": {
       "balanceHint": "Den i alt sum must equal 100%.",
@@ -2266,32 +2292,12 @@
   },
   "ads": {
     "title": "Annoncer",
-    "nav": {
-      "clickToWhatsappAds": "Click to WhatsApp Ads",
-      "clickToTiktokAds": "Click to TikTok Ads",
-      "connectAccounts": "Forbind konti",
-      "conversionEvents": "Konverteringshændelser",
-      "adsAnalytics": "Annonceanalyse",
-      "reporting": "Rapportering",
-      "ctwa": "CTWA",
-      "googleAds": "Google Ads",
-      "comingSoon": "Kommer snart"
-    },
     "connectAccounts": {
-      "title": "Administrer alle dine annoncekonti",
-      "description": "Spor konverteringer og optimer dine click-to-WhatsApp-annoncekampagner.",
-      "learnMore": "Lær mere",
       "connectAdAccount": "Forbind annoncekonto",
       "adAccountName": "Annoncekontonavn",
-      "disconnect": "Afbryd",
-      "empty": "Ingen annoncekonto forbundet endnu.",
-      "adAccountsTitle": "Meta-annoncekonti",
-      "adAccountsDescription": "Forbind Facebook Ads for at indlæse de annoncekonti, der bruges til click-to-WhatsApp-kampagner.",
       "adAccountsReconnectBanner": "Din Meta-annoncekontos token er udløbet eller har mistet tilladelser. Forbind Facebook Ads igen for at bevare annonceapportering.",
       "adAccountsNotConnected": "Der er endnu ikke forbundet nogen Meta-annoncekonti.",
       "adAccountsEmpty": "Der blev ikke fundet nogen Meta-annoncekonti til denne Facebook Ads-forbindelse.",
-      "adAccountsNote": "Forbrug og retargeting-målgrupper kommer fra disse annoncekonti.",
-      "reconnectBanner": "Forbind din WhatsApp-konto igen for at aktivere afsendelse af konverteringshændelser til Meta.",
       "reconnect": "Forbind igen",
       "reconnectSuccess": "WhatsApp-kontoen er forbundet igen.",
       "selectAccountLabel": "WhatsApp-konto",
@@ -2301,22 +2307,9 @@
         "unverified": "Tilladelse ikke bekræftet"
       },
       "table": {
-        "name": "Navn",
-        "phoneNumber": "Telefonnummer",
-        "wabaId": "WABA-ID",
-        "permission": "Automatiske hændelser"
-      },
-      "providers": {
-        "meta": "Meta",
-        "googleAds": "Google Ads",
-        "tiktok": "TikTok"
+        "wabaId": "WABA-ID"
       },
       "connectWhatsapp": {
-        "title": "Forbind først din WhatsApp-konto",
-        "description": "Click-to-WhatsApp-konverteringstracking kræver en forbundet WhatsApp-konto, før du kan tilknytte annoncekonti og oprette konverteringsdatasæt.",
-        "step1": "Forbind din WhatsApp Business-konto under Kanaler.",
-        "step2": "Kom tilbage hertil for at godkende Meta Ads og vælge din annoncekonto.",
-        "step3": "Vi opretter automatisk konverteringsdatasættet ved hjælp af din WhatsApp Business-konto.",
         "cta": "Forbind WhatsApp-konto"
       }
     },
@@ -2751,6 +2744,11 @@
     "noWorkspaces": "Du don't have vilkårlig arbejdsområder yet.",
     "owner": "Owner"
   },
+  "notFound": {
+    "title": "Siden blev ikke fundet",
+    "description": "Den side, du leder efter, findes ikke eller er muligvis blevet flyttet.",
+    "backToHome": "Tilbage til forsiden"
+  },
   "editProfile": {
     "title": "Rediger profil"
   },
@@ -2970,6 +2968,8 @@
     "toggleHelper": "Re-enabling kun works hvis Meta har buffered data (within 24 timer af onboarding). Otherwise afbryd og forbind igen.",
     "toggleHelperMessenger": "Re-enabling kun works hvis Meta har buffered data (within 24 timer af onboarding). Otherwise afbryd og forbind igen den Messenger page.",
     "toggleHelperWhatsapp": "Re-enabling kun works hvis Meta har buffered data (within 24 timer af onboarding). Otherwise afbryd og forbind igen den WhatsApp nummer.",
+    "aiReadsSyncedHistoryLabel": "AI læser synket historik",
+    "aiReadsSyncedHistoryHelper": "Når slået fra, ser AI kun nye beskeder.",
     "success": {
       "enabled": "Synkroniser started. Historical kontakter og beskeder vil appear shortly.",
       "disabled": "Synkroniser deaktiveret."
@@ -3388,7 +3388,8 @@
       "messageTemplates": "Besked Skabeloner",
       "profile": "Profil",
       "usefulLinks": "Useful Links",
-      "conversionsApi": "Ads Optimization"
+      "conversionsApi": "Ads Optimization",
+      "settings": "Indstillinger"
     },
     "accountHealths": {
       "title": "Administrer din WhatsApp konto",
@@ -3518,7 +3519,13 @@
       "label": "Skabelon Overskrift"
     },
     "transferPhoneNumber": "Overfør telefon fra another Whatsapp udbyder",
-    "signupSessionExpired": "Din WhatsApp signup session har udløbet. Venligst start den forbindelse igen."
+    "signupSessionExpired": "Din WhatsApp signup session har udløbet. Venligst start den forbindelse igen.",
+    "capi": {
+      "automaticEvents": {
+        "title": "Automatiske hændelser",
+        "description": "Send automatisk konverteringshændelser fra dette WhatsApp-nummer til Meta. Hvis tilladelsen mangler, skal du gentilslutte kontoen for at give den."
+      }
+    }
   },
   "zalo": {
     "title": "Zalo OA",
@@ -4149,15 +4156,18 @@
     "title": "Aftaleplanlægning",
     "description": "Opret og administrer din aftaleplanlægning.",
     "flowModes": {
-      "book": "Book aftale",
-      "cancel": "Annuller aftale",
-      "checkAvailability": "Tjek tilgængelighed"
+      "bookFromCustomField": "Book aftale",
+      "checkAvailabilityFromCustomField": "Tjek tilgængelighed",
+      "book": "Dato- og tidsvælger",
+      "checkAvailability": "Datointervalvælger",
+      "cancel": "Annuller aftale"
     },
     "fields": {
       "mode": "Tilstand",
       "dateTimeFieldId": "Gem valgt dato til",
-      "startDateFieldId": "Startdato",
-      "endDateFieldId": "Slutdato",
+      "dateTimeFieldIdSource": "Dato/tid-felt",
+      "startDateFieldId": "Startdatofelt",
+      "endDateFieldId": "Slutdatofelt",
       "resultUsedByAI": "Brug resultat til AI",
       "outputCustomFieldId": "Gem svar i et brugerdefineret felt",
       "startDateFieldIdSelected": "Gem valgt startdato til",
@@ -4873,6 +4883,7 @@
       "endDate": "Slutdato",
       "specificDate": "Dato",
       "maxAppointmentsPerUser": "Maksimalt antal aftaler pr. bruger",
+      "maxAppointmentsUnlimited": "Ubegrænset",
       "dailyLimitEnabled": "Daglig grænse",
       "maxPerDay": "Maks. pr. dag",
       "allowGroupMeeting": "Tillad gruppemøde",

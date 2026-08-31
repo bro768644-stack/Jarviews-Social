@@ -899,6 +899,15 @@
       "description": "Dies ist die Standardantwort, die Ihr Arbeitsbereich an Benutzer sendet, wenn er nicht weiß, wie er auf die Benutzernachricht antworten soll.",
       "label": "Standardantwort"
     },
+    "defaultReplyFrequency": {
+      "description": "Controls how often the Default Reply flow may fire for the same contact on a channel.",
+      "label": "Default Reply activation frequency",
+      "options": {
+        "allTime": "All time",
+        "oncePerHour": "Once per 1h",
+        "oncePerDay": "Once per 24h"
+      }
+    },
     "smartResponseDelaySeconds": {
       "description": "Legen Sie fest, wie lange der Bot nach der letzten Nachricht des Benutzers wartet, bevor er antwortet. Sendet der Benutzer eine weitere Nachricht, wird der Timer zurückgesetzt und die Nachrichten werden zu einer einzigen Antwort zusammengefasst.",
       "label": "Antwortverzögerung des Bots",
@@ -1272,6 +1281,12 @@
     },
     "pageUserName": {
       "label": "Seitenbenutzername"
+    },
+    "waUserId": {
+      "label": "WhatsApp-Benutzer-ID"
+    },
+    "waUserName": {
+      "label": "WhatsApp-Benutzername"
     },
     "purpose": {
       "label": "Zweck",
@@ -1976,6 +1991,9 @@
     "bookingDate": {
       "label": "Buchungsdatum"
     },
+    "bookingLink": {
+      "label": "Buchungslink"
+    },
     "n8nEvents": {
       "label": "Ereignisse",
       "placeholder": "Ereignisnamen eingeben und Enter drücken",
@@ -1983,6 +2001,10 @@
     }
   },
   "flows": {
+    "export": {
+      "notPublished": "Dieser Flow wurde noch nie veröffentlicht. Veröffentlichen Sie ihn, bevor Sie ihn exportieren.",
+      "failed": "Export fehlgeschlagen. Bitte versuchen Sie es erneut."
+    },
     "title": "Flows",
     "quickReplies": {
       "limitReached": "Limit für Schnellantworten erreicht ({max})."
@@ -2112,7 +2134,11 @@
       "appointmentScheduling": "Terminplanung",
       "triggerN8n": "n8n auslösen",
       "metaConversions": "Meta Conversions API",
-      "sendMetaCapiEvent": "Meta-CAPI-Ereignis senden"
+      "sendMetaCapiEvent": "Meta-CAPI-Ereignis senden",
+      "import": "Flow importieren",
+      "export": "Exportieren",
+      "importStarted": "Der Flow wird importiert. Ergebnisse im Importverlauf prüfen.",
+      "importJsonOnly": "Nur JSON-Dateien"
     },
     "splitTraffic": {
       "balanceHint": "Die Gesamtsumme muss 100 % ergeben.",
@@ -2266,32 +2292,12 @@
   },
   "ads": {
     "title": "Anzeigen",
-    "nav": {
-      "clickToWhatsappAds": "Click-to-WhatsApp-Anzeigen",
-      "clickToTiktokAds": "Click-to-TikTok-Anzeigen",
-      "connectAccounts": "Konten verbinden",
-      "conversionEvents": "Konversionsereignisse",
-      "adsAnalytics": "Anzeigenanalyse",
-      "reporting": "Berichte",
-      "ctwa": "CTWA",
-      "googleAds": "Google Ads",
-      "comingSoon": "Demnächst verfügbar"
-    },
     "connectAccounts": {
-      "title": "Verwalten Sie alle Ihre Werbekonten",
-      "description": "Verfolgen Sie Konversionen und optimieren Sie Ihre Click-to-WhatsApp-Werbekampagnen.",
-      "learnMore": "Mehr erfahren",
       "connectAdAccount": "Werbekonto verbinden",
       "adAccountName": "Name des Werbekontos",
-      "disconnect": "Verbindung trennen",
-      "empty": "Noch kein Werbekonto verbunden.",
-      "adAccountsTitle": "Meta-Werbekonten",
-      "adAccountsDescription": "Verbinden Sie Facebook Ads, um die für Click-to-WhatsApp-Kampagnen verwendeten Werbekonten zu laden.",
       "adAccountsReconnectBanner": "Das Token Ihres Meta-Werbekontos ist abgelaufen oder hat Berechtigungen verloren. Verbinden Sie Facebook Ads erneut, um die Anzeigenberichte verfügbar zu halten.",
       "adAccountsNotConnected": "Es sind noch keine Meta-Werbekonten verbunden.",
       "adAccountsEmpty": "Für diese Facebook-Ads-Verbindung wurden keine Meta-Werbekonten gefunden.",
-      "adAccountsNote": "Ausgaben und Retargeting-Zielgruppen stammen aus diesen Werbekonten.",
-      "reconnectBanner": "Verbinden Sie Ihr WhatsApp-Konto erneut, um das Senden von Konversionsereignissen an Meta zu ermöglichen.",
       "reconnect": "Erneut verbinden",
       "reconnectSuccess": "WhatsApp-Konto erneut verbunden.",
       "selectAccountLabel": "WhatsApp-Konto",
@@ -2301,22 +2307,9 @@
         "unverified": "Berechtigung nicht verifiziert"
       },
       "table": {
-        "name": "Name",
-        "phoneNumber": "Telefonnummer",
-        "wabaId": "WABA-ID",
-        "permission": "Automatische Ereignisse"
-      },
-      "providers": {
-        "meta": "Meta",
-        "googleAds": "Google Ads",
-        "tiktok": "TikTok"
+        "wabaId": "WABA-ID"
       },
       "connectWhatsapp": {
-        "title": "Verbinden Sie zuerst Ihr WhatsApp-Konto",
-        "description": "Für die Click-to-WhatsApp-Konversionsverfolgung ist ein verbundenes WhatsApp-Konto erforderlich, bevor Sie Werbekonten verknüpfen und Konversions-Datensätze erstellen können.",
-        "step1": "Verbinden Sie Ihr WhatsApp Business-Konto in Kanäle.",
-        "step2": "Kehren Sie hierher zurück, um Meta Ads zu autorisieren und Ihr Werbekonto auszuwählen.",
-        "step3": "Wir erstellen automatisch den Konversions-Datensatz anhand Ihres WhatsApp Business-Kontos.",
         "cta": "WhatsApp-Konto verbinden"
       }
     },
@@ -2751,6 +2744,11 @@
     "noWorkspaces": "Sie haben noch keine Arbeitsbereiche.",
     "owner": "Inhaber"
   },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite existiert nicht oder wurde möglicherweise verschoben.",
+    "backToHome": "Zurück zur Startseite"
+  },
   "editProfile": {
     "title": "Profil bearbeiten"
   },
@@ -2970,6 +2968,8 @@
     "toggleHelper": "Eine erneute Aktivierung funktioniert nur, wenn Meta Daten gepuffert hat (innerhalb von 24 Stunden nach dem Onboarding). Andernfalls trennen und erneut verbinden.",
     "toggleHelperMessenger": "Eine erneute Aktivierung funktioniert nur, wenn Meta Daten gepuffert hat (innerhalb von 24 Stunden nach dem Onboarding). Andernfalls die Messenger-Seite trennen und erneut verbinden.",
     "toggleHelperWhatsapp": "Eine erneute Aktivierung funktioniert nur, wenn Meta Daten gepuffert hat (innerhalb von 24 Stunden nach dem Onboarding). Andernfalls die WhatsApp-Nummer trennen und erneut verbinden.",
+    "aiReadsSyncedHistoryLabel": "KI liest Synchronverlauf",
+    "aiReadsSyncedHistoryHelper": "Wenn aus, sieht die KI nur neue Nachrichten.",
     "success": {
       "enabled": "Synchronisierung gestartet. Historische Kontakte und Nachrichten werden in Kürze angezeigt.",
       "disabled": "Synchronisierung deaktiviert."
@@ -3388,7 +3388,8 @@
       "messageTemplates": "Nachrichtenvorlagen",
       "profile": "Profil",
       "usefulLinks": "Nützliche Links",
-      "conversionsApi": "Anzeigenoptimierung"
+      "conversionsApi": "Anzeigenoptimierung",
+      "settings": "Einstellungen"
     },
     "accountHealths": {
       "title": "WhatsApp-Konto verwalten",
@@ -3518,7 +3519,13 @@
       "label": "Vorlagen-Header"
     },
     "transferPhoneNumber": "Telefonnummer von einem anderen WhatsApp-Anbieter übertragen",
-    "signupSessionExpired": "Ihre WhatsApp-Registrierungssitzung ist abgelaufen. Starten Sie die Verbindung erneut."
+    "signupSessionExpired": "Ihre WhatsApp-Registrierungssitzung ist abgelaufen. Starten Sie die Verbindung erneut.",
+    "capi": {
+      "automaticEvents": {
+        "title": "Automatische Ereignisse",
+        "description": "Conversion-Events dieser WhatsApp-Nummer automatisch an Meta senden. Fehlt die Berechtigung, verbinden Sie das Konto erneut, um sie zu erteilen."
+      }
+    }
   },
   "zalo": {
     "title": "Zalo OA",
@@ -4149,15 +4156,18 @@
     "title": "Terminplanung",
     "description": "Erstellen und verwalten Sie Ihre Terminplanung.",
     "flowModes": {
-      "book": "Termin buchen",
-      "cancel": "Termin absagen",
-      "checkAvailability": "Verfügbarkeit prüfen"
+      "bookFromCustomField": "Termin buchen",
+      "checkAvailabilityFromCustomField": "Verfügbarkeit prüfen",
+      "book": "Datums-/Zeitauswahl",
+      "checkAvailability": "Datumsbereichsauswahl",
+      "cancel": "Termin absagen"
     },
     "fields": {
       "mode": "Modus",
       "dateTimeFieldId": "Ausgewähltes Datum speichern in",
-      "startDateFieldId": "Startdatum",
-      "endDateFieldId": "Enddatum",
+      "dateTimeFieldIdSource": "Datum-/Zeitfeld",
+      "startDateFieldId": "Startdatumfeld",
+      "endDateFieldId": "Enddatumfeld",
       "resultUsedByAI": "Ergebnis für KI verwenden",
       "outputCustomFieldId": "Antwort in benutzerdefiniertem Feld speichern",
       "startDateFieldIdSelected": "Ausgewähltes Startdatum speichern in",
@@ -4873,6 +4883,7 @@
       "endDate": "Enddatum",
       "specificDate": "Datum",
       "maxAppointmentsPerUser": "Maximale Termine pro Nutzer",
+      "maxAppointmentsUnlimited": "Unbegrenzt",
       "dailyLimitEnabled": "Tageslimit",
       "maxPerDay": "Max. pro Tag",
       "allowGroupMeeting": "Gruppentermine erlauben",

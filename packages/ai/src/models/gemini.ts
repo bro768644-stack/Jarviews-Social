@@ -1,7 +1,11 @@
 import { z } from "zod"
 
-export const geminiEmbeddingModels = z.enum(["text-embedding-004"])
+export const geminiEmbeddingModels = z.enum(["gemini-embedding-001"])
 export type GeminiEmbeddingModel = z.infer<typeof geminiEmbeddingModels>
+
+// Must match the fixed `vector(1536)` column width in AIEmbedding/AIConversationEmbedding.
+// gemini-embedding-001 defaults to 3072 dims; this truncates it via Google's MRL support.
+export const GEMINI_EMBEDDING_OUTPUT_DIMENSIONALITY = 1536
 
 export const geminiModels = z.enum([
   "gemini-3-pro-image-preview",
