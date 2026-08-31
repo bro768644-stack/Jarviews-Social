@@ -1,3 +1,4 @@
+import { GEMINI_EMBEDDING_OUTPUT_DIMENSIONALITY } from "@chatbotx.io/ai"
 import { db, eq, findOrFail } from "@chatbotx.io/database/client"
 import { aiEmbeddingStatuses } from "@chatbotx.io/database/partials"
 import { aiConversationEmbeddingModel } from "@chatbotx.io/database/schema"
@@ -42,6 +43,11 @@ export async function processConversationSourceEmbedding(
     const { embedding } = await embed({
       model: embeddingModel,
       value: embeddingItem.content,
+      providerOptions: {
+        google: {
+          outputDimensionality: GEMINI_EMBEDDING_OUTPUT_DIMENSIONALITY,
+        },
+      },
     })
 
     await db

@@ -1,3 +1,4 @@
+import { GEMINI_EMBEDDING_OUTPUT_DIMENSIONALITY } from "@chatbotx.io/ai"
 import {
   aiConversationSourceStatuses,
   aiConversationSourceTypes,
@@ -225,6 +226,9 @@ async function retrieveDocumentChunks(
   const { embedding } = await embed({
     model: embeddingModel,
     value: input.query,
+    providerOptions: {
+      google: { outputDimensionality: GEMINI_EMBEDDING_OUTPUT_DIMENSIONALITY },
+    },
   })
 
   const queryEmbeddingVector = `[${embedding.join(",")}]`

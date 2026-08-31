@@ -29,7 +29,7 @@ export async function resolveEmbeddingModel(
     const apiKey = (integrationGemini.auth as SecretTextAuthValue).secretText
     const gemini = createGoogleGenerativeAI({ apiKey })
 
-    return gemini.embedding(geminiEmbeddingModels.enum["text-embedding-004"])
+    return gemini.embedding(geminiEmbeddingModels.enum["gemini-embedding-001"])
   }
 
   throw new Error(
